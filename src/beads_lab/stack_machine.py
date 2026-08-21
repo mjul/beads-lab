@@ -2,8 +2,14 @@
 
 from __future__ import annotations
 
+import sys
+
 from beads_lab.expression import Builtin, Expr, Lit, Op
-from beads_lab.values import DomainError, Rational
+from beads_lab.parser import Parser
+from beads_lab.protocols import run
+from beads_lab.values import DomainError, ParseError, Rational
+
+_USAGE = "Usage: python -m beads_lab.stack_machine <expression>"
 
 
 class Evaluator:
@@ -83,3 +89,22 @@ class Evaluator:
         if base == 0 and n <= 0:
             raise DomainError("zero raised to a non-positive exponent")
         return base**n
+
+
+def main(argv: list[str] | None = None) -> int:
+    """One-shot CLI: exactly one expression argv → print Fraction or error."""
+    args = sys.argv if argv is None else argv
+    if len(args) != 2:
+        print(_USAGE, file=sys.stderr)
+        return 2
+    try:
+        result = run(Parser(), Evaluator(), args[1])
+    except (ParseError, DomainError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    print(result)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
