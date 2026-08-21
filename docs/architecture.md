@@ -173,21 +173,23 @@ Concrete class names beyond the conceptual ADT, packaging entry points in `pypro
 
 ## Backlog (Beads)
 
-Epic `workspace-bp7` — *Lisp-prefix rational calculator*.
+Epic `bl-i7g` — *Lisp-prefix rational calculator*.
 
 Implementable order (dependencies enforced in `bd`):
 
-1. **Protocols** (`workspace-kwy`)
-   - `workspace-0ss` — Expr ADT + errors + Fraction alias
-   - `workspace-dz5` — `Parser` / `Evaluator` protocols
-2. **Parser** (`workspace-4vf`)
-   - `workspace-b1f` — `parser.py` string → Expr
-3. **Stack machine** (`workspace-zdi`)
-   - `workspace-e09` — stack `evaluate`
-   - `workspace-3gi` — CLI
-4. **Free monad** (`workspace-p16`)
-   - `workspace-ick` — free structure + interpreter
-   - `workspace-dg9` — CLI
-   - `workspace-cw3` — observational equivalence vs stack
+1. **Protocols** (`bl-i7g.1`)
+   - `bl-i7g.1.1` — Expr ADT + errors + Fraction alias
+   - `bl-i7g.1.2` — `Parser` / `Evaluator` protocols
+2. **Parser** (`bl-i7g.2`)
+   - `bl-i7g.2.1` — `parser.py` string → Expr
+3. **Stack machine** (`bl-i7g.3`)
+   - `bl-i7g.3.1` — stack `evaluate`
+   - `bl-i7g.3.2` — CLI
+4. **Free monad** (`bl-i7g.4`)
+   - `bl-i7g.4.1` — free structure + interpreter
+   - `bl-i7g.4.2` — CLI
+   - `bl-i7g.4.3` — observational equivalence vs stack
 
-Start with: `bd update workspace-0ss --claim` (first ready implementation task).
+Related chore (environment, not product): `bl-3oq` — Cloud Agent: install `bd` CLI and put `~/.local/bin` on PATH.
+
+Start with: `bd update bl-i7g.1.1 --claim` (first ready implementation task).
