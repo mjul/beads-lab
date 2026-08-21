@@ -100,7 +100,7 @@ Examples:
 ## Success metrics
 
 - Docs define denotations for Expr, ℚ, parse, eval, unparse, and (FR9) CLI output modes.
-- Calculator epic (FR1–FR7) and pretty-print (FR8) shipped; next backlog covers CLI polish with dependencies and observables.
+- Calculator epic (FR1–FR7), pretty-print (FR8), and CLI polish (FR9) shipped or landing; next backlog covers console script entry points ([console-scripts.md](./console-scripts.md)).
 - Implementer can TDD each task from docs without inventing competing ADTs.
 
 ## Open decisions (resolved here)
