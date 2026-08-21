@@ -1,0 +1,16 @@
+[project]
+name = "beads-lab"
+version = "0.1.0"
+description = "beads-lab Python project"
+authors = [
+    { name = "Cursor Agent", email = "cursoragent@cursor.com" }
+]
+requires-python = ">=3.14"
+dependencies = []
+
+[project.scripts]
+beads-lab = "beads_lab:main"
+
+[build-system]
+requires = ["uv_build>=0.12.5,<0.13.0"]
+build-backend = "uv_build"
