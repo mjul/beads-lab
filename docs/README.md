@@ -29,5 +29,7 @@ Every named module or interface in these docs should state:
 
 | Doc | Purpose |
 | --- | --- |
+| [prd.md](./prd.md) | Product requirements: Lisp-prefix rational calculator |
+| [architecture.md](./architecture.md) | Modules, protocols, denotations, CLI contract |
+| [glossary.md](./glossary.md) | Shared vocabulary |
 | [agents-workflow.md](./agents-workflow.md) | How to invoke and hand off between subagents |
-| *(add module docs here)* | Interface contracts and glossaries as the design grows |
