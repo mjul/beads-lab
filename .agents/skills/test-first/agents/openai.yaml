@@ -1,0 +1,4 @@
+interface:
+  display_name: "Test-First"
+  short_description: "Outside-in TDD with requirement-level tests"
+  default_prompt: "Use $test-first to write high-level tests that encode requirements before implementing, and add low-level tests only when necessary."
