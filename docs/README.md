@@ -16,6 +16,8 @@ Flow:
 3. When implementation hits unhandled cases or awkward seams, the implementer files `arch-feedback:` issues in `bd`.
 4. **Architecture** reviews feedback, evolves docs and backlog (or closes feedback as YAGNI).
 
+Parent orchestration for draining ready work: `.agents/skills/backlog-loop/` (implementation phase → architecture phase → repeat).
+
 ## Denotational checklist (for docs authors)
 
 Every named module or interface in these docs should state:

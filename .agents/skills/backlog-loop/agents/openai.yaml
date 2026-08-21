@@ -1,0 +1,4 @@
+interface:
+  display_name: "Backlog Loop"
+  short_description: "Phased drain of bd work via implementer then architecture"
+  default_prompt: "Use $backlog-loop to work the next Beads backlog items: drain all ready implementation tasks via /implementer, then architecture via /architecture, and loop until the backlog is clear."
