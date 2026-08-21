@@ -32,8 +32,9 @@ Every named module or interface in these docs should state:
 
 | Doc | Purpose |
 | --- | --- |
-| [prd.md](./prd.md) | Product requirements: Lisp-prefix rational calculator (+ unparse FR) |
+| [prd.md](./prd.md) | Product requirements: Lisp-prefix rational calculator (+ unparse FR8, CLI polish FR9) |
 | [architecture.md](./architecture.md) | Modules, protocols, denotations, CLI contract, backlog status |
-| [pretty-print.md](./pretty-print.md) | Next capability: `unparse` Expr → canonical Lisp-prefix string |
+| [pretty-print.md](./pretty-print.md) | Shipped: `unparse` Expr → canonical Lisp-prefix string |
+| [cli-polish.md](./cli-polish.md) | Next: shared CLI driver + `--show-expr` display mode |
 | [glossary.md](./glossary.md) | Shared vocabulary |
 | [agents-workflow.md](./agents-workflow.md) | How to invoke and hand off between subagents |

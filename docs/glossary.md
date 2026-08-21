@@ -8,6 +8,8 @@
 | **Parse** | Partial map string → Expr. |
 | **Unparse / pretty-print** | Total map Expr → canonical Lisp-prefix string (inverse of parse up to whitespace). |
 | **Canonical concrete syntax** | Unique spacing and lexeme choices produced by `unparse` (see [pretty-print.md](./pretty-print.md)). |
+| **CLI driver** | Shared one-shot argv → exit orchestration; injects an `Evaluator` for evaluate mode (see [cli-polish.md](./cli-polish.md)). |
+| **`--show-expr`** | CLI output mode: print `unparse(parse(s))` without evaluating. |
 | **⟦·⟧ / denotation** | Shared mathematical meaning of an Expr as a rational (or domain failure). |
 | **Parser (protocol)** | Interface with `parse(str) -> Expr`. |
 | **Evaluator (protocol)** | Interface with `evaluate(Expr) -> Fraction`. |

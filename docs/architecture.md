@@ -10,9 +10,10 @@ beads_lab/
   values.py         # Rational = fractions.Fraction; error types (conceptual)
   protocols.py      # Parser, Evaluator protocols
   parser.py         # str → Expr
-  printer.py        # Expr → canonical Lisp-prefix str (unparse; next capability)
-  stack_machine.py  # Evaluator + CLI (stack realization)
-  free_monad.py     # Evaluator + CLI (free-monad realization)
+  printer.py        # Expr → canonical Lisp-prefix str (unparse; shipped)
+  cli.py            # shared one-shot CLI driver (next capability)
+  stack_machine.py  # Evaluator + thin CLI wrapper (stack realization)
+  free_monad.py     # Evaluator + thin CLI wrapper (free-monad realization)
 ```
 
 Dependency direction (allowed edges only):
@@ -20,13 +21,16 @@ Dependency direction (allowed edges only):
 ```text
 expression ← parser, printer
 expression ← stack_machine, free_monad
-protocols  ← parser, stack_machine, free_monad   (implement / type against)
-values     ← stack_machine, free_monad
-parser     ← stack_machine, free_monad           (CLI composition only)
+protocols  ← parser, stack_machine, free_monad, cli   (implement / type against)
+values     ← stack_machine, free_monad, cli
+parser     ← stack_machine, free_monad, cli           # CLI / driver composition
+printer    ← cli                                      # --show-expr only
+cli        ← stack_machine, free_monad                # mains inject Evaluator
 ```
 
 `stack_machine` and `free_monad` must **not** depend on each other.
-`printer` must **not** depend on `parser` or either evaluator (round-trips compose in tests only).
+`printer` must **not** depend on `parser` or either evaluator (round-trips compose in tests / `cli` only).
+`cli` must **not** import `stack_machine` or `free_monad`.
 
 ## Carriers and denotations
 
@@ -127,7 +131,7 @@ def run(parser: Parser, evaluator: Evaluator, source: str) -> Fraction:
     return evaluator.evaluate(parser.parse(source))
 ```
 
-CLIs are thin: argv string → `run` → print `Fraction` (normalize string form, e.g. `Fraction` `__str__`).
+CLIs are thin: argv → shared driver → print `Fraction` or (optional) `unparse(parse(s))`. See [cli-polish.md](./cli-polish.md).
 
 ## Realization strategies (what differs)
 
@@ -156,12 +160,14 @@ Do not conflate these in tests or CLI exit semantics: prefer distinct exception 
 
 ## CLI contract
 
-Both modules expose a `__main__` / `main` that:
+Both evaluator modules expose a `__main__` / `main` that delegates to a **shared** driver (`cli.py` once the CLI-polish epic lands):
 
-1. Accepts exactly one expression string (beyond program name); excess/missing args → usage error.
-2. Uses `parser.py` + that module’s `Evaluator`.
-3. On success: prints the rational to stdout (stable, test-friendly).
-4. On parse/domain error: non-zero exit and message on stderr.
+1. Accepts exactly one expression string plus optional `--show-expr`; excess/missing non-flag args or unknown flags → usage error.
+2. **Default (evaluate)**: `parser.py` + that module’s `Evaluator` → print rational (`Fraction` `__str__`).
+3. **`--show-expr`**: print `unparse(parse(source))`; do not evaluate (no domain errors).
+4. On parse error (either mode) or domain error (evaluate only): non-zero exit and message on stderr.
+
+Full argv / mode denotation: [cli-polish.md](./cli-polish.md).
 
 ## Testing guidance (for implementer)
 
@@ -177,27 +183,32 @@ Concrete class names beyond the conceptual ADT, packaging entry points in `pypro
 
 ### Shipped — Lisp-prefix rational calculator
 
-Epic **workspace-bp7** (*Lisp-prefix rational calculator*; earlier design id `bl-i7g`) is **complete**. Features and leaf tasks covered protocols, shared `parser.py`, stack-machine and free-monad evaluators + CLIs, and FR7 observational equivalence (**workspace-cw3**). Module reality on master matches the map above (minus `printer.py` until the next epic lands).
+Epic **workspace-bp7** (*Lisp-prefix rational calculator*; earlier design id `bl-i7g`) is **complete**. Features and leaf tasks covered protocols, shared `parser.py`, stack-machine and free-monad evaluators + CLIs, and FR7 observational equivalence (**workspace-cw3**).
 
 Do **not** redesign ⟦·⟧, the `Expr` ADT, or the two evaluators for new work.
 
-### Next — pretty-print / unparse
+### Shipped — pretty-print / unparse
 
-Epic **workspace-o2p** — canonical `Expr` → Lisp-prefix string (inverse of parse; does not change evaluation). Spec: [pretty-print.md](./pretty-print.md).
+Epic **workspace-o2p** is **complete**. Shared `printer.py` provides `unparse : Expr → String` with FR8 round-trip / normalization laws ([pretty-print.md](./pretty-print.md)). Module map on master includes `printer.py`.
+
+Do **not** redesign canonical concrete syntax or move `unparse` into the evaluators.
+
+### Next — CLI polish (shared driver + `--show-expr`)
+
+Epic **workspace-fml** — shared `cli.py` and optional `--show-expr`. Spec: [cli-polish.md](./cli-polish.md).
 
 | ID | Role | Notes |
 | --- | --- | --- |
-| `workspace-o2p` | Epic (track) | Already decomposed; prefer leaf tasks. Close when feature is done. |
-| `workspace-o2p.2` | Feature | Blocked until all four leaf tasks close |
-| `workspace-9rn` | Task | **`unparse` Lit** — first ready implementable leaf |
-| `workspace-nca` | Task | **`unparse` App** — depends on `workspace-9rn` |
-| `workspace-6ns` | Task | **Syntax round-trip** — depends on `workspace-nca` |
-| `workspace-fzz` | Task | **Canonical normalization** — depends on `workspace-nca` |
+| `workspace-fml` | Epic (track) | Aggregator only; prefer leaf tasks |
+| `workspace-gsn` | Task | **`cli.py` evaluate-mode driver** — first ready leaf |
+| `workspace-zxy` | Task | **Migrate both mains** — depends on `workspace-gsn` |
+| `workspace-uqj` | Task | **`--show-expr` on driver** — depends on `workspace-gsn` (∥ migrate) |
+| `workspace-s81` | Task | **E2E `--show-expr` CLI tests** — depends on `workspace-zxy` + `workspace-uqj` |
 
 Implementable order (dependencies in `bd`):
 
-1. `workspace-9rn` — `unparse` literals
-2. `workspace-nca` — `unparse` applications
-3. `workspace-6ns` + `workspace-fzz` — round-trip and normalization (parallel after App)
+1. `workspace-gsn` — shared evaluate-mode driver
+2. `workspace-zxy` ∥ `workspace-uqj` — migrate mains and add `--show-expr`
+3. `workspace-s81` — end-to-end show-expr on both entry points
 
-Start with: `bd update workspace-9rn --claim` (or `bd ready --type=task`).
+Start with: `bd update workspace-gsn --claim` (or `bd ready --type=task`).
