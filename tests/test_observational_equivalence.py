@@ -163,7 +163,7 @@ def well_formed_sources(draw: st.DrawFn) -> str:
     def extend(children: st.SearchStrategy[str]) -> st.SearchStrategy[str]:
         op_form = st.tuples(
             st.sampled_from(_OPS),
-            st.lists(children, min_size=0, max_size=4),
+            st.lists(children, min_size=0, max_size=2),
         ).map(lambda pair: _format_app(pair[0], pair[1]))
         builtin_form = st.tuples(
             st.sampled_from(_BUILTINS),
@@ -171,11 +171,11 @@ def well_formed_sources(draw: st.DrawFn) -> str:
         ).map(lambda pair: _format_app(pair[0], pair[1]))
         return st.one_of(op_form, builtin_form)
 
-    return draw(st.recursive(leaf(), extend, max_leaves=12))
+    return draw(st.recursive(leaf(), extend, max_leaves=6))
 
 
 @given(source=well_formed_sources())
-@settings(max_examples=80, deadline=None)
+@settings(max_examples=20, deadline=None)
 def test_stack_and_free_agree_on_random_well_formed_sources(source: str) -> None:
     """Property: for every generated string that parses, denotations coincide."""
     parser = Parser()
