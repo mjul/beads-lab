@@ -1,0 +1,16 @@
+#!/bin/bash
+# Run gitleaks on staged changes when the CLI is available.
+set -e
+
+ROOT="$(git rev-parse --show-toplevel)"
+SCRIPT="${ROOT}/scripts/gitleaks.sh"
+
+if [ ! -x "${SCRIPT}" ]; then
+  exit 0
+fi
+
+if command -v gitleaks >/dev/null 2>&1 || [ -x "${HOME}/.local/bin/gitleaks" ]; then
+  exec "${SCRIPT}" protect
+fi
+
+echo "gitleaks: skipped (install with ./scripts/gitleaks.sh install)" >&2

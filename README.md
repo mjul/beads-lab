@@ -54,6 +54,21 @@ uv run ty check src tests
 
 `ty` is a dev dependency (Astral’s type checker), installed with `uv sync --group dev`.
 
+## Secret scanning (gitleaks)
+
+Custom rules in `.gitleaks.toml` extend the default gitleaks config to catch
+GitHub Cloud Agent tokens (`ghs_APPID_JWT`) and credential-bearing
+`x-access-token:` URLs (the pattern previously leaked in `.beads/config.yaml`).
+
+```bash
+./scripts/gitleaks.sh install   # once: download gitleaks to ~/.local/bin
+./scripts/gitleaks.sh protect   # pre-commit: scan staged changes
+./scripts/gitleaks.sh audit     # full git history (reports known past leaks)
+```
+
+CI runs the same config on every push and pull request via
+`.github/workflows/gitleaks.yml`.
+
 ## Agent workflow
 
 See `AGENTS.md` and `.cursor/rules/beads.mdc`. Short version:

@@ -1,0 +1,19 @@
+# beads-lab: extend default gitleaks rules with Cloud Agent / Dolt remote patterns.
+# See scripts/gitleaks.sh and .github/workflows/gitleaks.yml.
+
+title = "beads-lab gitleaks config"
+
+[extend]
+useDefault = true
+
+[[rules]]
+id = "github-credential-url-x-access-token"
+description = "Git credential URL embedding x-access-token (Cloud Agent / PAT in remote URL)."
+regex = '''x-access-token:[A-Za-z0-9._~+\-/]+@'''
+keywords = ["x-access-token"]
+
+[[rules]]
+id = "github-app-installation-token-jwt"
+description = "GitHub App installation token in ghs_APPID_JWT format (variable-length Cloud Agent tokens)."
+regex = '''ghs_[0-9]+_eyJ[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+\.[A-Za-z0-9_-]+'''
+keywords = ["ghs_"]
