@@ -41,7 +41,8 @@ If a proposed design fails composition or consistency, revise the abstraction be
    - Explicit dependencies with `bd dep add`
    - Descriptions that state acceptance intent and point to the relevant docs paths
 5. When the implementer (or you) filed architecture-feedback issues, review them: evolve docs and backlog, or close with rationale if YAGNI applies.
-6. Hand back a short summary: docs touched, issues created/updated, open design risks.
+6. **Hand-off memory (required):** `bd remember "…" --key "handoff-<slug>"` with what landed, TIL / tips & tricks, and improvement ideas for docs/skills/agents (no secrets).
+7. Hand back a short summary: docs touched, issues created/updated, open design risks.
 
 ## Beads conventions for architecture output
 

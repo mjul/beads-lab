@@ -59,6 +59,14 @@ bd create "Short title" --description="Why this exists and what needs to be done
 bd close <id> --reason="Completed"
 ```
 
+6. **Required hand-off memory** when finishing a task or meaningful chunk:
+
+```bash
+bd remember "…" --key "handoff-<short-slug>"
+```
+
+Include: what landed, TIL / tips & tricks for the project, and suggestions for improving docs/skills/agents/tooling. File actionable follow-ups as `bd` issues. Never store secrets in memories. Search with `bd memories <keyword>` when starting related work.
+
 ## What Belongs In Beads
 
 Use Beads for:
@@ -78,3 +86,4 @@ Use agent-local planning tools only for the current turn's execution checklist. 
 - Prefer `--json` when parsing `bd` output programmatically.
 - If hooks are installed, `bd prime` may already be injected. Run it manually when context is missing.
 - Do not auto-close or mutate tasks unless the work is actually complete.
+- Always `bd remember` a short hand-off (TIL + improvement ideas) when finishing work; do not use MEMORY.md.

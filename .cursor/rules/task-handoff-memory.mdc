@@ -1,0 +1,20 @@
+---
+description: Write a Beads memory hand-off after finishing a task
+alwaysApply: true
+---
+
+# Task hand-off memory (required)
+
+When you finish a task (or a meaningful work chunk), **always** write a short hand-off to Beads memory before you stop:
+
+```bash
+bd remember "…" --key "handoff-<short-slug>"
+```
+
+The note should help the next agent (and future skills) improve. Include:
+
+1. **What landed** — one or two sentences (issue IDs if any)
+2. **TIL / tips & tricks** — non-obvious project knowledge discovered this session
+3. **Improvement ideas** — concrete suggestions for docs, skills, agents, tooling, or process (file `bd` issues for actionable follow-ups; keep the memory for durable insight)
+
+Do **not** put secrets in memories. Prefer `bd remember` over `MEMORY.md` or ad-hoc scratch files. Search prior learnings with `bd memories <keyword>` when starting related work.
