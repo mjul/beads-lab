@@ -60,17 +60,21 @@ This protocol applies when ending a Beads implementation workflow. It is subordi
 
 ## Build & Test
 
-_Add your build and test commands here_
+Python **3.14+** with **uv**. Sync and quality gates:
 
 ```bash
-# Example:
-# npm install
-# npm test
+uv sync --group dev
+uv run pytest
+uv run ruff check .
+uv run ruff format --check .
+uv run ty check src tests
 ```
+
+See `AGENTS.md` (Python tooling) and `README.md` for detail.
 
 ## Architecture Overview
 
-_Add a brief overview of your project architecture_
+Lisp-prefix rational calculator over ℚ with two interchangeable evaluators (stack machine and free monad). Design: `docs/prd.md`, `docs/architecture.md`, `docs/glossary.md`.
 
 ## Conventions & Patterns
 
