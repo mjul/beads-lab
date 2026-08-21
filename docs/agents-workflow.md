@@ -9,7 +9,7 @@ Custom Cursor subagents (also linked for Claude/Codex):
 
 | Ask the parent to run… | When… |
 | --- | --- |
-| **architecture** | Designing or revising modules/interfaces; writing `docs/`; shaping the `bd` backlog; reviewing `arch-feedback:` issues |
+| **architecture** | Designing or revising modules/interfaces; writing `docs/` (with high-level examples); shaping the `bd` backlog; reviewing `arch-feedback:` issues |
 | **implementer** | A concrete `bd` task is ready; you want TDD + YAGNI code; you need implementation feedback filed back to architecture |
 
 Invoke via Cursor’s Task/subagent delegation (or `/architecture`, `/implementer` where supported). Give the subagent the issue ID, relevant doc paths, and any constraints — subagents start with a clean context.
