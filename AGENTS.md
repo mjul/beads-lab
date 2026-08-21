@@ -45,6 +45,22 @@ Skills used by the implementer: `.agents/skills/test-first/`, `.agents/skills/be
 - Before `git add` / commit, scrub any accidental secrets from tracked files (especially `.beads/config.yaml`).
 - If a secret was committed, rotate/revoke it and remove it from history — do not leave it in the tree.
 
+## Task hand-off memory (required)
+
+When you finish a task or a meaningful work chunk, **always** leave a short hand-off in Beads memory so agents and skills improve over time:
+
+```bash
+bd remember "…" --key "handoff-<short-slug>"
+```
+
+Include:
+
+1. **What landed** — brief outcome (and issue IDs if any)
+2. **TIL / tips & tricks** — non-obvious project knowledge from this session
+3. **Improvement ideas** — concrete suggestions for docs, skills, agents, tooling, or process
+
+File actionable follow-ups as `bd` issues; keep the memory for durable insight. Never put secrets in memories. Search prior learnings with `bd memories <keyword>` when starting related work.
+
 ## Non-Interactive Shell Commands
 
 **ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.

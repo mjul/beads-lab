@@ -74,4 +74,17 @@ _Add a brief overview of your project architecture_
 
 ## Conventions & Patterns
 
-_Add your project-specific conventions here_
+### Task hand-off memory
+
+When finishing a task or meaningful work chunk, always write a short Beads memory:
+
+```bash
+bd remember "…" --key "handoff-<short-slug>"
+```
+
+Include what landed, TIL / tips & tricks, and improvement ideas for docs/skills/agents/tooling. No secrets. Search with `bd memories <keyword>`. See `AGENTS.md` and `.cursor/rules/task-handoff-memory.mdc`.
+
+### Secrets
+
+Never commit tokens or credential-bearing URLs to git. See `AGENTS.md` and `.cursor/rules/no-secrets-in-git.mdc`.
+

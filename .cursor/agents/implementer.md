@@ -31,7 +31,8 @@ Your job is to take ready work from the Beads backlog and ship the **simplest co
 6. Run the project’s tests/linters for the touched area (`uv run pytest`, `uv run ruff check`, etc.).
 7. Close the issue when the acceptance intent is met: `bd close <id> --reason="..."`.
 8. File architecture feedback issues before finishing if needed (see below).
-9. Hand back: what shipped, tests added, issue IDs closed/created, anything still blocked.
+9. **Hand-off memory (required):** `bd remember "…" --key "handoff-<slug>"` with what landed, TIL / tips & tricks, and improvement ideas for docs/skills/agents (no secrets).
+10. Hand back: what shipped, tests added, issue IDs closed/created, anything still blocked.
 
 ## YAGNI rules
 
