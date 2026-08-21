@@ -36,6 +36,15 @@ See [docs/agents-workflow.md](docs/agents-workflow.md) and [docs/README.md](docs
 
 Skills used by the implementer: `.agents/skills/test-first/`, `.agents/skills/beads/`.
 
+## Secrets: never commit tokens or credentials
+
+**Never commit tokens, API keys, passwords, or other secrets to git.**
+
+- Do not stage credential-bearing URLs (e.g. Cloud Agent `x-access-token` / `ghs_` values in `git remote` or `.beads/config.yaml` `sync.remote`).
+- Prefer environment variables for secrets (`GITHUB_TOKEN`, `LINEAR_API_KEY`, etc.).
+- Before `git add` / commit, scrub any accidental secrets from tracked files (especially `.beads/config.yaml`).
+- If a secret was committed, rotate/revoke it and remove it from history — do not leave it in the tree.
+
 ## Non-Interactive Shell Commands
 
 **ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.
