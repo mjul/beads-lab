@@ -21,6 +21,17 @@ Invoke via Cursor’s Task/subagent delegation (or `/architecture`, `/implemente
 3. After implementer returns `arch-feedback:` IDs, schedule **architecture** to review them before piling on more features.
 4. Keep `bd` as the source of truth for work; do not create markdown TODO lists.
 5. When a task (or meaningful chunk) finishes, require a short **hand-off memory** via `bd remember` (what landed, TIL / tips & tricks, improvement ideas for docs/skills/agents). Search prior learnings with `bd memories <keyword>`.
+6. To **drain the backlog** (all ready implementation, then architecture, then switch back until idle), use the **backlog-loop** skill: `.agents/skills/backlog-loop/SKILL.md`.
+
+## Backlog loop (phased drain)
+
+When the user asks to work the next backlog item(s) or clear ready work, follow `.agents/skills/backlog-loop/SKILL.md`:
+
+1. Start in **implementation** phase — delegate every ready implementation-classified issue to `/implementer` until that lane is empty.
+2. Switch to **architecture** — delegate ready architecture work (`arch-feedback:`, epics/features, docs/design) to `/architecture` until that lane is empty.
+3. Switch back to implementation and repeat until a full cycle finds nothing in either lane.
+
+The parent orchestrates only; it does not write app code or architecture docs while the loop is active.
 
 ## Beads patterns
 

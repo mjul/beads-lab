@@ -36,6 +36,8 @@ See [docs/agents-workflow.md](docs/agents-workflow.md) and [docs/README.md](docs
 
 Skills used by the implementer: `.agents/skills/test-first/`, `.agents/skills/beads/`.
 
+To drain ready backlog work in phases (all implementation via `/implementer`, then architecture via `/architecture`, then switch back), use `.agents/skills/backlog-loop/`.
+
 ## Secrets: never commit tokens or credentials
 
 **Never commit tokens, API keys, passwords, or other secrets to git.**
