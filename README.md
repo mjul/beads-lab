@@ -46,6 +46,14 @@ uv run ruff format --check .  # CI-style format check
 
 Config lives in `[tool.ruff]` in `pyproject.toml`.
 
+## Type check (ty)
+
+```bash
+uv run ty check src tests
+```
+
+`ty` is a dev dependency (Astral’s type checker), installed with `uv sync --group dev`.
+
 ## Agent workflow
 
 See `AGENTS.md` and `.cursor/rules/beads.mdc`. Short version:
