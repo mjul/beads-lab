@@ -199,17 +199,20 @@ Epic **workspace-fml** is **complete** in Beads. Master ships the shared evaluat
 
 Do **not** duplicate argv handling in evaluator modules; extend `cli.py` only.
 
-### Next — Console script entry points
+### Shipped — Console script entry points
 
-Epic **workspace-cvx** — `[project.scripts]` for `beads-stack` / `beads-free`, remove placeholder `beads-lab` stub, README calculator examples. Spec: [console-scripts.md](./console-scripts.md).
+Epic **workspace-cvx** is **complete**. Master ships `beads-stack` / `beads-free` console scripts (#37) and README calculator examples. Subprocess smoke tests may land via follow-up merge; spec: [console-scripts.md](./console-scripts.md).
+
+### Next — FR9 `--show-expr` on master
+
+Epic **workspace-6vw** — `--show-expr` is specified in [cli-polish.md](./cli-polish.md) and architecture FR9 but **not yet on master** (evaluate-only driver shipped in #33). Land helper tests, E2E subprocess coverage, and README examples without changing ⟦·⟧.
 
 | ID | Role | Notes |
 | --- | --- | --- |
-| `workspace-cvx` | Epic (track) | Packaging only; no new semantics |
-| `workspace-dim` | Task | **`pyproject.toml` scripts** — wire stack/free `main`, drop stub |
-| `workspace-aq4` | Task | **README CLI section** — `-m` and `uv run beads-*` examples |
-| `workspace-fv5` | Task | **Script smoke tests** — subprocess parity; depends on `workspace-dim` |
+| `workspace-6vw` | Epic | Completes FR9 on master |
+| `workspace-4qg` | Task | **`cli.py` `--show-expr`** — first ready leaf |
+| `workspace-h7a` | Task | **E2E `--show-expr` tests** — depends on `workspace-4qg` |
+| `workspace-7sk` | Task | **README `--show-expr` examples** — depends on `workspace-4qg` |
+| `workspace-8cw` | Task | **Console script smoke tests** — may run ∥ `workspace-4qg` |
 
-Implementable order: `workspace-dim` → `workspace-fv5`; `workspace-aq4` may run in parallel.
-
-Start with: `bd update workspace-dim --claim`.
+Start with: `bd update workspace-4qg --claim`.
