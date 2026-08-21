@@ -68,3 +68,5 @@ Two custom subagents encode the design ↔ build loop (see `docs/agents-workflow
 | `implementer` | `.cursor/agents/implementer.md` | Claims ready `bd` tasks, TDD + YAGNI, simplest code that works; posts `arch-feedback:` issues when the design is incomplete or awkward. |
 
 Delegate via Cursor’s Task/subagent tooling (or `/architecture` / `/implementer` where available).
+
+To drain the backlog in phases (implementation first, then architecture, then switch back), use the **backlog-loop** skill: `.agents/skills/backlog-loop/`.
