@@ -2,10 +2,15 @@
 
 from __future__ import annotations
 
+import sys
 from dataclasses import dataclass
 
 from beads_lab.expression import Builtin, Expr, Lit, Op
-from beads_lab.values import DomainError, Rational
+from beads_lab.parser import Parser
+from beads_lab.protocols import run
+from beads_lab.values import DomainError, ParseError, Rational
+
+_USAGE = "Usage: python -m beads_lab.free_monad <expression>"
 
 # ---------------------------------------------------------------------------
 # Free structure: Free F ∅ over the calculator instruction functor F.
@@ -133,3 +138,22 @@ class Evaluator:
 
     def evaluate(self, expr: Expr) -> Rational:
         return interpret(to_free(expr))
+
+
+def main(argv: list[str] | None = None) -> int:
+    """One-shot CLI: exactly one expression argv → print Fraction or error."""
+    args = sys.argv if argv is None else argv
+    if len(args) != 2:
+        print(_USAGE, file=sys.stderr)
+        return 2
+    try:
+        result = run(Parser(), Evaluator(), args[1])
+    except (ParseError, DomainError) as exc:
+        print(str(exc), file=sys.stderr)
+        return 1
+    print(result)
+    return 0
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())
