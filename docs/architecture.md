@@ -11,7 +11,7 @@ beads_lab/
   protocols.py      # Parser, Evaluator protocols
   parser.py         # str → Expr
   printer.py        # Expr → canonical Lisp-prefix str (unparse; shipped)
-  cli.py            # shared one-shot CLI driver (next capability)
+  cli.py            # shared one-shot CLI driver (shipped)
   stack_machine.py  # Evaluator + thin CLI wrapper (stack realization)
   free_monad.py     # Evaluator + thin CLI wrapper (free-monad realization)
 ```
@@ -193,22 +193,23 @@ Epic **workspace-o2p** is **complete**. Shared `printer.py` provides `unparse : 
 
 Do **not** redesign canonical concrete syntax or move `unparse` into the evaluators.
 
-### Next — CLI polish (shared driver + `--show-expr`)
+### Shipped — CLI polish (shared driver + `--show-expr`)
 
-Epic **workspace-fml** — shared `cli.py` and optional `--show-expr`. Spec: [cli-polish.md](./cli-polish.md).
+Epic **workspace-fml** is **complete** in Beads. Master ships the shared evaluate-mode driver and thin mains (#33). Optional `--show-expr` and E2E subprocess tests may land via follow-up merges; behavior is specified in [cli-polish.md](./cli-polish.md).
+
+Do **not** duplicate argv handling in evaluator modules; extend `cli.py` only.
+
+### Next — Console script entry points
+
+Epic **workspace-cvx** — `[project.scripts]` for `beads-stack` / `beads-free`, remove placeholder `beads-lab` stub, README calculator examples. Spec: [console-scripts.md](./console-scripts.md).
 
 | ID | Role | Notes |
 | --- | --- | --- |
-| `workspace-fml` | Epic (track) | Aggregator only; prefer leaf tasks |
-| `workspace-gsn` | Task | **`cli.py` evaluate-mode driver** — first ready leaf |
-| `workspace-zxy` | Task | **Migrate both mains** — depends on `workspace-gsn` |
-| `workspace-uqj` | Task | **`--show-expr` on driver** — depends on `workspace-gsn` (∥ migrate) |
-| `workspace-s81` | Task | **E2E `--show-expr` CLI tests** — depends on `workspace-zxy` + `workspace-uqj` |
+| `workspace-cvx` | Epic (track) | Packaging only; no new semantics |
+| `workspace-dim` | Task | **`pyproject.toml` scripts** — wire stack/free `main`, drop stub |
+| `workspace-aq4` | Task | **README CLI section** — `-m` and `uv run beads-*` examples |
+| `workspace-fv5` | Task | **Script smoke tests** — subprocess parity; depends on `workspace-dim` |
 
-Implementable order (dependencies in `bd`):
+Implementable order: `workspace-dim` → `workspace-fv5`; `workspace-aq4` may run in parallel.
 
-1. `workspace-gsn` — shared evaluate-mode driver
-2. `workspace-zxy` ∥ `workspace-uqj` — migrate mains and add `--show-expr`
-3. `workspace-s81` — end-to-end show-expr on both entry points
-
-Start with: `bd update workspace-gsn --claim` (or `bd ready --type=task`).
+Start with: `bd update workspace-dim --claim`.
