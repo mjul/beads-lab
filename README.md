@@ -21,6 +21,7 @@ bd dolt pull          # sync issue data if a Dolt remote is configured
 bd setup cursor       # Cursor rules → .cursor/rules/beads.mdc
 bd prime              # load agent workflow context
 bd ready              # find available work
+uv sync --group dev   # Python deps (incl. ruff)
 ```
 
 Fresh init (already done here):
@@ -29,6 +30,17 @@ Fresh init (already done here):
 bd init --quiet
 bd setup cursor
 ```
+
+## Lint and format (ruff)
+
+```bash
+uv run ruff check .           # lint
+uv run ruff check --fix .    # lint + apply safe fixes
+uv run ruff format .          # format
+uv run ruff format --check .  # CI-style format check
+```
+
+Config lives in `[tool.ruff]` in `pyproject.toml`.
 
 ## Agent workflow
 
