@@ -53,3 +53,14 @@ bd update <id> --claim
 bd close <id>
 bd dolt push
 ```
+
+### Architecture and implementer subagents
+
+Two custom subagents encode the design ↔ build loop (see `docs/agents-workflow.md`):
+
+| Subagent | Path | Responsibility |
+| --- | --- | --- |
+| `architecture` | `.cursor/agents/architecture.md` | Modules/interfaces/abstractions with denotational consistency; writes `docs/`; fills the `bd` backlog. Does not write app code. |
+| `implementer` | `.cursor/agents/implementer.md` | Claims ready `bd` tasks, TDD + YAGNI, simplest code that works; posts `arch-feedback:` issues when the design is incomplete or awkward. |
+
+Delegate via Cursor’s Task/subagent tooling (or `/architecture` / `/implementer` where available).
