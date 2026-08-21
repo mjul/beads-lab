@@ -23,6 +23,19 @@ bd close <id>         # Complete work
 bd dolt push          # Push beads data to remote
 ```
 
+## Subagents (architecture ↔ implementer)
+
+Project custom subagents live in `.cursor/agents/` (symlinked for Claude/Codex):
+
+| Subagent | Role |
+| --- | --- |
+| `architecture` | Denotational design, `docs/` Markdown, `bd` backlog/tasks — **no application code** |
+| `implementer` | TDD + YAGNI from ready `bd` tasks; files `arch-feedback:` issues when design is incomplete or cumbersome |
+
+See [docs/agents-workflow.md](docs/agents-workflow.md) and [docs/README.md](docs/README.md).
+
+Skills used by the implementer: `.agents/skills/test-first/`, `.agents/skills/beads/`.
+
 ## Non-Interactive Shell Commands
 
 **ALWAYS use non-interactive flags** with file operations to avoid hanging on confirmation prompts.
