@@ -20,6 +20,7 @@ Invoke via Cursor’s Task/subagent delegation (or `/architecture`, `/implemente
 2. Prefer **implementer** for a single claimed (or clearly identified) ready issue.
 3. After implementer returns `arch-feedback:` IDs, schedule **architecture** to review them before piling on more features.
 4. Keep `bd` as the source of truth for work; do not create markdown TODO lists.
+5. When a task (or meaningful chunk) finishes, require a short **hand-off memory** via `bd remember` (what landed, TIL / tips & tricks, improvement ideas for docs/skills/agents). Search prior learnings with `bd memories <keyword>`.
 
 ## Beads patterns
 
