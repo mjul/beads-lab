@@ -1,4 +1,4 @@
-# Capability: pretty-print / unparse
+# Capability: pretty-print / unparse (**shipped**)
 
 Inverse of parsing: map an `Expr` AST to a **canonical Lisp-prefix string**. Does **not** change ⟦·⟧; evaluators and the shared parser stay as shipped.
 
@@ -84,7 +84,7 @@ unparse(expr: Expr) -> str
 
 A `Printer` protocol is **out of scope** (single canonical realization; YAGNI). Call sites import the function (or a thin module-level API) from `printer.py`.
 
-Optional later (not this epic): CLIs may print `unparse(expr)` in debug paths; default CLI output remains the rational.
+Optional later (not this epic): CLIs may print `unparse(expr)` in debug paths; default CLI output remains the rational. **Follow-on:** [cli-polish.md](./cli-polish.md) (`--show-expr` via shared driver).
 
 ## High-level examples
 
@@ -138,7 +138,8 @@ An implementer verifies without peeking at printer internals:
 | Piece | Status |
 | --- | --- |
 | `Expr`, `Parser`, both `Evaluator`s, CLIs, FR1–FR7 | Shipped — do not redesign |
-| `unparse` / `printer.py` | This capability |
+| `unparse` / `printer.py` / FR8 | **Shipped** |
+| Shared CLI driver + `--show-expr` | Next — [cli-polish.md](./cli-polish.md) |
 
 ## References
 
