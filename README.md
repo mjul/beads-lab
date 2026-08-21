@@ -54,6 +54,26 @@ uv run ty check src tests
 
 `ty` is a dev dependency (Astral’s type checker), installed with `uv sync --group dev`.
 
+## Calculator CLI
+
+This repo includes a **Lisp-prefix rational calculator** over ℚ with two interchangeable evaluators (stack machine and free-monad interpreter). Both share one parser and agree on results.
+
+After `uv sync --group dev`, evaluate an expression with either entry style:
+
+```bash
+# Module entry points
+uv run python -m beads_lab.stack_machine '(+ 1 (* 2 3))'
+uv run python -m beads_lab.free_monad '(pow 2 3)'
+
+# Console scripts (same behavior)
+uv run beads-stack '(+ 1 (* 2 3))'
+uv run beads-free '(pow 2 3)'
+```
+
+Success prints the rational result on stdout; parse or domain failures go to stderr with a non-zero exit code.
+
+Full CLI contract (output modes, argv rules): [docs/cli-polish.md](docs/cli-polish.md). Module map and denotations: [docs/architecture.md](docs/architecture.md).
+
 ## Agent workflow
 
 See `AGENTS.md` and `.cursor/rules/beads.mdc`. Short version:
