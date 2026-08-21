@@ -38,6 +38,19 @@ Skills used by the implementer: `.agents/skills/test-first/`, `.agents/skills/be
 
 To drain ready backlog work in phases (all implementation via `/implementer`, then architecture via `/architecture`, then switch back), use `.agents/skills/backlog-loop/`.
 
+## Python tooling (agents)
+
+Python **3.14+** project managed with **uv**. Application code lives under `src/beads_lab/`; tests under `tests/`. Prefer modern typing (`type` aliases, `|` unions, `Protocol`); avoid untyped public APIs.
+
+| Tool | Role | Agent command |
+| --- | --- | --- |
+| **uv** | deps / runner | `uv sync --group dev` |
+| **pytest** (+ Hypothesis) | tests | `uv run pytest` |
+| **ruff** | lint + format | `uv run ruff check .` · `uv run ruff format --check .` |
+| **ty** | type check | `uv run ty check src tests` |
+
+Config: `[tool.ruff]` (and dependency pins) in `pyproject.toml`. After code changes, run the quality gates above before handoff. More command detail: `README.md`.
+
 ## Secrets: never commit tokens or credentials
 
 **Never commit tokens, API keys, passwords, or other secrets to git.**
