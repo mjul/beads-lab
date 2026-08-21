@@ -24,6 +24,10 @@ bd ready              # find available work
 uv sync --group dev   # Python deps (incl. ruff)
 ```
 
+Cursor Cloud Agent environments use `.cursor/environment.json`, which runs
+`./scripts/cloud-agent-install.sh` to install `bd` (via `$HOME/.local/bin` on
+PATH) and sync project dependencies—no manual install step required.
+
 Fresh init (already done here):
 
 ```bash
