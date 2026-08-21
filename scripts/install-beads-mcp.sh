@@ -23,7 +23,7 @@ uv tool install --quiet beads-mcp
 
 # Ensure shells and Cursor MCP launches see ~/.local/bin
 mkdir -p "${HOME}/.local/bin"
-if ! grep -q 'HOME}/.local/bin' "${HOME}/.bashrc" 2>/dev/null; then
+if ! grep -qE '(\$HOME|\$\{HOME\})/\.local/bin' "${HOME}/.bashrc" 2>/dev/null; then
   echo 'export PATH="$HOME/.local/bin:$PATH"' >> "${HOME}/.bashrc"
 fi
 
