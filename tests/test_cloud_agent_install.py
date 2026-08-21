@@ -37,9 +37,7 @@ def test_running_install_leaves_bd_invokable() -> None:
     env = os.environ.copy()
     # Simulate a fresh agent shell that has not yet inherited a custom PATH.
     path_parts = [
-        p
-        for p in env.get("PATH", "").split(os.pathsep)
-        if p and ".local/bin" not in p
+        p for p in env.get("PATH", "").split(os.pathsep) if p and ".local/bin" not in p
     ]
     env["PATH"] = os.pathsep.join(path_parts)
 
