@@ -21,7 +21,8 @@ We need a small, well-specified calculator that evaluates arithmetic expressions
 - Macros, quoting, or full Lisp
 - Multiprecision beyond Python `int` / `fractions.Fraction`
 - Interactive REPL, files-as-programs, or package plugins
-- Pretty-printing or source maps beyond error messages needed for tests
+- Source maps, spans, or multi-line indented layouts (canonical single-line `unparse` is in scope; see FR8)
+- Shared evaluation-helper extraction or alternate rational print modes (exact vs mixed) until a later epic
 
 ## Users and interface
 
@@ -85,6 +86,7 @@ Examples:
 | FR5 | Stack-machine evaluator lives in `stack_machine.py` and provides a CLI entry. |
 | FR6 | Free-monad interpreter lives in `free_monad.py` and provides a CLI entry. |
 | FR7 | For every successfully parsed expression, both evaluators agree on success value or both signal the same class of domain error (observational equivalence of denotation). |
+| FR8 | `unparse` maps every well-formed `Expr` to a canonical Lisp-prefix string such that `parse(unparse(e)) = e`; whitespace variants that parse normalize via `unparse` (see [pretty-print.md](./pretty-print.md)). |
 
 ## Non-functional requirements
 
@@ -94,8 +96,8 @@ Examples:
 
 ## Success metrics
 
-- Docs define denotations for Expr, ℚ, parse, and eval.
-- Backlog tasks cover: protocols → parser → stack machine → free monad, with dependencies.
+- Docs define denotations for Expr, ℚ, parse, eval, and (FR8) unparse.
+- Calculator epic (FR1–FR7) shipped; next backlog covers unparse with dependencies and round-trip observables.
 - Implementer can TDD each task from docs without inventing competing ADTs.
 
 ## Open decisions (resolved here)

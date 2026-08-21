@@ -10,6 +10,7 @@ beads_lab/
   values.py         # Rational = fractions.Fraction; error types (conceptual)
   protocols.py      # Parser, Evaluator protocols
   parser.py         # str → Expr
+  printer.py        # Expr → canonical Lisp-prefix str (unparse; next capability)
   stack_machine.py  # Evaluator + CLI (stack realization)
   free_monad.py     # Evaluator + CLI (free-monad realization)
 ```
@@ -17,7 +18,7 @@ beads_lab/
 Dependency direction (allowed edges only):
 
 ```text
-expression ← parser
+expression ← parser, printer
 expression ← stack_machine, free_monad
 protocols  ← parser, stack_machine, free_monad   (implement / type against)
 values     ← stack_machine, free_monad
@@ -25,6 +26,7 @@ parser     ← stack_machine, free_monad           (CLI composition only)
 ```
 
 `stack_machine` and `free_monad` must **not** depend on each other.
+`printer` must **not** depend on `parser` or either evaluator (round-trips compose in tests only).
 
 ## Carriers and denotations
 
@@ -173,23 +175,29 @@ Concrete class names beyond the conceptual ADT, packaging entry points in `pypro
 
 ## Backlog (Beads)
 
-Epic `bl-i7g` — *Lisp-prefix rational calculator*.
+### Shipped — Lisp-prefix rational calculator
 
-Implementable order (dependencies enforced in `bd`):
+Epic **workspace-bp7** (*Lisp-prefix rational calculator*; earlier design id `bl-i7g`) is **complete**. Features and leaf tasks covered protocols, shared `parser.py`, stack-machine and free-monad evaluators + CLIs, and FR7 observational equivalence (**workspace-cw3**). Module reality on master matches the map above (minus `printer.py` until the next epic lands).
 
-1. **Protocols** (`bl-i7g.1`)
-   - `bl-i7g.1.1` — Expr ADT + errors + Fraction alias
-   - `bl-i7g.1.2` — `Parser` / `Evaluator` protocols
-2. **Parser** (`bl-i7g.2`)
-   - `bl-i7g.2.1` — `parser.py` string → Expr
-3. **Stack machine** (`bl-i7g.3`)
-   - `bl-i7g.3.1` — stack `evaluate`
-   - `bl-i7g.3.2` — CLI
-4. **Free monad** (`bl-i7g.4`)
-   - `bl-i7g.4.1` — free structure + interpreter
-   - `bl-i7g.4.2` — CLI
-   - `bl-i7g.4.3` — observational equivalence vs stack
+Do **not** redesign ⟦·⟧, the `Expr` ADT, or the two evaluators for new work.
 
-Related chore (environment, not product): `bl-3oq` — Cloud Agent: install `bd` CLI and put `~/.local/bin` on PATH.
+### Next — pretty-print / unparse
 
-Start with: `bd update bl-i7g.1.1 --claim` (first ready implementation task).
+Epic **workspace-o2p** — canonical `Expr` → Lisp-prefix string (inverse of parse; does not change evaluation). Spec: [pretty-print.md](./pretty-print.md).
+
+| ID | Role | Notes |
+| --- | --- | --- |
+| `workspace-o2p` | Epic (track) | Already decomposed; prefer leaf tasks. Close when feature is done. |
+| `workspace-o2p.2` | Feature | Blocked until all four leaf tasks close |
+| `workspace-9rn` | Task | **`unparse` Lit** — first ready implementable leaf |
+| `workspace-nca` | Task | **`unparse` App** — depends on `workspace-9rn` |
+| `workspace-6ns` | Task | **Syntax round-trip** — depends on `workspace-nca` |
+| `workspace-fzz` | Task | **Canonical normalization** — depends on `workspace-nca` |
+
+Implementable order (dependencies in `bd`):
+
+1. `workspace-9rn` — `unparse` literals
+2. `workspace-nca` — `unparse` applications
+3. `workspace-6ns` + `workspace-fzz` — round-trip and normalization (parallel after App)
+
+Start with: `bd update workspace-9rn --claim` (or `bd ready --type=task`).
