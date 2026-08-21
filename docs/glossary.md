@@ -6,6 +6,8 @@
 | **Expr** | Abstract syntax tree for the calculator language (literals and applications). |
 | **Lisp prefix** | Fully parenthesized prefix forms: `(op arg…)`. |
 | **Parse** | Partial map string → Expr. |
+| **Unparse / pretty-print** | Total map Expr → canonical Lisp-prefix string (inverse of parse up to whitespace). |
+| **Canonical concrete syntax** | Unique spacing and lexeme choices produced by `unparse` (see [pretty-print.md](./pretty-print.md)). |
 | **⟦·⟧ / denotation** | Shared mathematical meaning of an Expr as a rational (or domain failure). |
 | **Parser (protocol)** | Interface with `parse(str) -> Expr`. |
 | **Evaluator (protocol)** | Interface with `evaluate(Expr) -> Fraction`. |
