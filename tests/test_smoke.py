@@ -1,6 +1,5 @@
-from beads_lab import main
+from beads_lab import reverse_string
 
 
-def test_main_runs(capsys) -> None:
-    main()
-    assert "Hello from beads-lab!" in capsys.readouterr().out
+def test_reverse_string_smoke() -> None:
+    assert reverse_string("abc") == "cba"
