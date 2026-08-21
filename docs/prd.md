@@ -21,19 +21,21 @@ We need a small, well-specified calculator that evaluates arithmetic expressions
 - Macros, quoting, or full Lisp
 - Multiprecision beyond Python `int` / `fractions.Fraction`
 - Interactive REPL, files-as-programs, or package plugins
-- Source maps, spans, or multi-line indented layouts (canonical single-line `unparse` is in scope; see FR8)
-- Shared evaluation-helper extraction or alternate rational print modes (exact vs mixed) until a later epic
+- Source maps, spans, or multi-line indented layouts (canonical single-line `unparse` shipped; see FR8)
+- Alternate rational print modes (exact vs mixed number) until a later epic
+- Printing both Fraction and unparsed form in one CLI invocation (see FR9 / [cli-polish.md](./cli-polish.md) for single-mode `--show-expr`)
 
 ## Users and interface
 
 - **Primary user**: developer / agent running expressions from the shell for verification and demos.
-- **Invocation**: each evaluator entry point takes **one expression string** as a command-line argument (unit of input = that string), parses with shared `parser.py`, prints the rational result (or a clear error) on stdout/stderr.
+- **Invocation**: each evaluator entry point takes **one expression string** as a command-line argument (unit of input = that string), optionally with `--show-expr`, parses with shared `parser.py`, and prints either the rational result or the canonical unparsed form (or a clear error) on stdout/stderr. Shared driver: [cli-polish.md](./cli-polish.md).
 
-Example shape (concrete flags left to implementer; behavior is normative):
+Example shape (concrete packaging left to implementer; behavior is normative):
 
 ```bash
 uv run python -m beads_lab.stack_machine '(+ 1 (* 2 3))'
 uv run python -m beads_lab.free_monad '(pow 2 3)'
+uv run python -m beads_lab.stack_machine --show-expr '(  +  1  2 )'
 ```
 
 ## Language surface
@@ -87,6 +89,7 @@ Examples:
 | FR6 | Free-monad interpreter lives in `free_monad.py` and provides a CLI entry. |
 | FR7 | For every successfully parsed expression, both evaluators agree on success value or both signal the same class of domain error (observational equivalence of denotation). |
 | FR8 | `unparse` maps every well-formed `Expr` to a canonical Lisp-prefix string such that `parse(unparse(e)) = e`; whitespace variants that parse normalize via `unparse` (see [pretty-print.md](./pretty-print.md)). |
+| FR9 | Both CLIs share one driver: default mode prints the rational; optional `--show-expr` prints `unparse(parse(s))` without evaluating (see [cli-polish.md](./cli-polish.md)). |
 
 ## Non-functional requirements
 
@@ -96,8 +99,8 @@ Examples:
 
 ## Success metrics
 
-- Docs define denotations for Expr, ℚ, parse, eval, and (FR8) unparse.
-- Calculator epic (FR1–FR7) shipped; next backlog covers unparse with dependencies and round-trip observables.
+- Docs define denotations for Expr, ℚ, parse, eval, unparse, and (FR9) CLI output modes.
+- Calculator epic (FR1–FR7) and pretty-print (FR8) shipped; next backlog covers CLI polish with dependencies and observables.
 - Implementer can TDD each task from docs without inventing competing ADTs.
 
 ## Open decisions (resolved here)
@@ -112,5 +115,7 @@ Examples:
 ## References
 
 - Architecture & denotations: [architecture.md](./architecture.md)
+- Pretty-print / unparse: [pretty-print.md](./pretty-print.md)
+- CLI polish: [cli-polish.md](./cli-polish.md)
 - Glossary: [glossary.md](./glossary.md)
 - Agent workflow: [agents-workflow.md](./agents-workflow.md)
