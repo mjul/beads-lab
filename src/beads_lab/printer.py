@@ -10,7 +10,8 @@ def unparse(expr: Expr) -> str:
     match expr:
         case Lit(value):
             return str(value)
-        case App():
-            raise NotImplementedError("unparse for App is not implemented yet")
+        case App(head, args):
+            parts = [head.value, *(unparse(arg) for arg in args)]
+            return "(" + " ".join(parts) + ")"
         case _:
             raise TypeError(f"expected Expr, got {type(expr)!r}")
