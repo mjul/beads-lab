@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "beads": {
+      "command": "uvx",
+      "args": ["beads-mcp"],
+      "env": {
+        "BEADS_PATH": "${userHome}/.local/bin/bd",
+        "BEADS_WORKING_DIR": "${workspaceFolder}"
+      }
+    }
+  }
+}

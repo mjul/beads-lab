@@ -65,4 +65,3 @@
 # - linear.api_key  → use LINEAR_API_KEY env var instead
 # - github.token    → use GITHUB_TOKEN env var instead
 
-sync.remote: "git+https://x-access-token:ghs_1210556_eyJhbGciOiJFUzI1NiIsInR5cCI6IkpXVCJ9.eyJhdWQiOiJhdXRobmQiLCJjdHgiOiJzUks3Wk1wdC1GblZJSnF5ZTNOel9EYS15MUNSaU9OY0hMcTRPWC1kQjFhVDR4X0oxQjUtSU9zNzBCR2NSWGMiLCJleHAiOjE3ODczMjU0MzEsImlhdCI6MTc4NzMyMTgzMSwiaXNzIjoiZ2l0aHViIiwianRpIjoiNmIyZGMyOGUtNWQ4Zi00NGE0LTk5M2ItMTZhYWViNjRkZjI3IiwidmVyIjozfQ.e8XfW066gL82B6lPYKVRHy2sGjoM69cdNTcih-EZJXUZYuDof8tYYRU_l4J2Zmu38EINB8_vXbC6vEfUnFB7mA@github.com/mjul/beads-lab"
